@@ -5,7 +5,7 @@ const db = require("./models");
 const Role = db.role;
 
 const DB =
-  "mongodb+srv://FoodExpress:luko7049123@cluster0.a7qscul.mongodb.net/FoodExpress?retryWrites=true&w=majority";
+  "mongodb+srv://FoodExpress:luko7049123@cluster0.a7qscul.mongodb.net/Biblioteka?retryWrites=true&w=majority";
 mongoose
   .connect(DB, {
     useNewUrlParser: true,

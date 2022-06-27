@@ -39,3 +39,60 @@ exports.createNewUser = async (req, res) => {
   }
 };
 
+
+exports.getUserById = async (req, res) => {
+  try {
+    const users = await Transactions.findById(req.params.id);
+    res.status(200).json({
+      status: "success",
+      data: {
+        transactions: users,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+
+exports.updateUser = async (req, res) => {
+  console.log(req.params.id);
+  console.log(req.body);
+  try {
+    const user = await Transactions.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: false,
+    });
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        transactions: user,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+exports.deleteUserById = async (req, res) => {
+  console.log(req.params.id)
+  try {
+    const users = await Transactions.findByIdAndDelete(req.params.id);
+    res.status(200).json({
+      status: "success",
+      data: null,
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};

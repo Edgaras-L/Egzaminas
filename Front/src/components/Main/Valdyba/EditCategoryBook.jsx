@@ -6,7 +6,7 @@ import * as yup from "yup";
 
 import './Styles/admin.css'
 
-function EditRestaurant({ defaultData, id, data, subId, onCancel, onSubmit }) {
+function EditCategoryBook({ defaultData, id, data, subId, onCancel, onSubmit }) {
     const [value, setValue] = useState(defaultData.value)
     const [editpopup, setEditPopUp] = useState(false);
 
@@ -42,7 +42,7 @@ function EditRestaurant({ defaultData, id, data, subId, onCancel, onSubmit }) {
     });
 
     return (
-        <tr className='editrestaurant'>
+        <tr className='editcategoryBook'>
             <td>
                 <input
                     {...register('value')}
@@ -77,4 +77,4 @@ function EditRestaurant({ defaultData, id, data, subId, onCancel, onSubmit }) {
     )
 }
 
-export default EditRestaurant
+export default EditCategoryBook

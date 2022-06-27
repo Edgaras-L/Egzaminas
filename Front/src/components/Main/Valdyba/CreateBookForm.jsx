@@ -4,11 +4,11 @@ import { MdRestaurant } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { addNewRestaurant } from '../../../api/lib/RestaurantAPI';
+import { addNewBook } from '../../../api/lib/BookAPI';
 
-function CreateRestaurantForm({ handlepopupClose, render, setRender, userId }) {
+function CreateBookForm({ handlepopupClose, render, setRender, userId }) {
 
-    const [restaurant, setRestaurant] = useState("");
+    const [Book, setBook] = useState("");
 
     const budgetSchema = yup.object().shape({
         value: yup
@@ -36,7 +36,7 @@ function CreateRestaurantForm({ handlepopupClose, render, setRender, userId }) {
             icon: 'success',
             confirmButtonText: 'Puiku!'
         });
-        await addNewRestaurant(data).then(() => { setRender(!render) })   //send data into database(depending on current UserId)
+        await addNewBook(data).then(() => { setRender(!render) })   //send data into database(depending on current UserId)
         handlepopupClose(false); //close create-pop-up after submit
         reset(''); //reset input values
     }
@@ -57,15 +57,15 @@ function CreateRestaurantForm({ handlepopupClose, render, setRender, userId }) {
                         type='text'
                         defaultValue=''
                         placeholder='Įveskite restorano pavadinimą'
-                        onChange={(e) => setRestaurant(e.target.value)}
+                        onChange={(e) => setBook(e.target.value)}
                         className='border bg-transparent text-muted'>
                     </input>
-                    <p className=' p-0 text-danger'>{errors.restaurant?.message}</p>
+                    <p className=' p-0 text-danger'>{errors.Book?.message}</p>
                     <div className='formfooter d-flex flex-row flex-wrap mt-5'>
                         <div className='me-4'>
                             <button
                                 className='w-55 btn text-light'
-                                type='submit' id="btn" disabled={!restaurant}>Sukurti
+                                type='submit' id="btn" disabled={!Book}>Sukurti
                             </button>
                         </div>
                         <div className='me-4'>
@@ -82,4 +82,4 @@ function CreateRestaurantForm({ handlepopupClose, render, setRender, userId }) {
     )
 }
 
-export default CreateRestaurantForm
+export default CreateBookForm

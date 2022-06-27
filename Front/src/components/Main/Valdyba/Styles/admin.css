@@ -109,7 +109,8 @@
 }
 
 .mainadmin button {
-    color: #f7f8f9;
+    background-color: rgb(160, 154, 154);
+    color: rgb(83, 83, 83);
 }
 
 .mainadmin button:hover {

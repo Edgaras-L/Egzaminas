@@ -13,6 +13,7 @@ import ErrorPage from './components/ErrorPages/ErrorPage';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import ListUsers from './components/Main/Valdyba/ListUsers';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/*" element={<ErrorPage />} />
         <Route path="/veikla" element={<MainContainer />} />
         <Route path="/admin" element={<MainAdminTable />} />
+        <Route path="/users" element={<ListUsers />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
       </Routes>

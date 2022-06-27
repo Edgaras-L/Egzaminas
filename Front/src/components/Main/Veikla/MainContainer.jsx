@@ -174,30 +174,30 @@ function MainContainer() {
                             </div>
                         </div>
                         <div className='ps-5 py-4'>
-                            <h5 className='title m-0 d-block'>Padarykite užsakumą</h5>
+                            <h5 className='title m-0 d-block'>Knygos</h5>
                         </div>
                     </div>
                     <div className='main pt-3'>
                         <div className='row activitiestable border border-1 border-muted mx-auto p-3 shadow w-100'>
                             <div className='d-flex flex-row position-relative'>
                                 <button onClick={toggleUtilitiesPopUp} className='btn d-lg-none'><TiThMenu /></button>
-                                            <button
+                                            {/* <button
                                                 onClick={toggleAddPopup}
                                                 className='btn bg-transparent border-0'>
                                                 <RiAddFill className='text-center me-3' />
                                                 <span>Pridėti įrašą</span>
-                                            </button>
+                                            </button> */}
                                         </div>
                                     </div>
                             </div>
                 
                                 <div className="h-25 text-center">
-                                    <button
+                                    {/* <button
                                         onClick={toggleAddPopup}
                                         className='btn add text-center p-1 me-2'>
                                         <span><RiAddFill className='text-center' /></span>
                                     </button>
-                                    <span>Pridėti įrašą</span>
+                                    <span>Pridėti įrašą</span> */}
                                 </div>
                             </div>
                         </div>

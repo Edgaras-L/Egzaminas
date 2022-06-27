@@ -30,3 +30,7 @@ export const signout = () => axios.post('http://localhost:3000/api/auth/signout'
   .then((response) => {
     console.log(response);
   });
+
+export async function deleteUserById(userId) { await axiosClient.patch(`/deleteUser/${userId}`) };
+
+export const updateUser = (data, subId) => axiosClient.patch(`/${subId}/update`, JSON.stringify(data));

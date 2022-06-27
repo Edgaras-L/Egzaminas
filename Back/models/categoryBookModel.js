@@ -5,7 +5,7 @@ const Date = {
   timestamps: { currentTime: () => new Date() },
 };
 
-const restaurantSchema = mongoose.Schema(
+const categoryBookSchema = mongoose.Schema(
   {
     value: { type: String, },
     date: { type: Date },
@@ -15,8 +15,8 @@ const restaurantSchema = mongoose.Schema(
 
 
 // Modelis DB lentelės pavadinimas
-const RestaurantModel = new mongoose.model("Restaurant", restaurantSchema);
+const CategoryBookModel = new mongoose.model("CategoryBook", categoryBookSchema);
 
 
 
-module.exports = RestaurantModel;
+module.exports = CategoryBookModel;

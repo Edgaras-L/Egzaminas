@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
 import Swal from 'sweetalert2';
-import ListRestaurant from './ListRestaurant'
-import EditRestaurant from './EditRestaurant'
-import { updateRestaurant, getAllRestaurants, deleteRestaurant } from '../../../api/lib/RestaurantAPI';
+import ListCategoryBook from './ListCategoryBook'
+import EditCategoryBook from './EditCategoryBook'
+import { updateCategoryBook, getAllCategoryBooks, deleteCategoryBook } from '../../../api/lib/CategoryBookAPI';
 
-function RestaurantTable({setAll, restaurantId, all, setRender, userId}) {
+function CategoryBookTable({setAll, CategoryBookId, all, setRender, userId}) {
 
     const [editId, setEditId] = useState([]);
 
@@ -15,8 +15,8 @@ function RestaurantTable({setAll, restaurantId, all, setRender, userId}) {
     };
     //---HandleEdit---//
     const submitEdit = async (id, subId, data) => {
-        await updateRestaurant(id, subId, data).then(() =>
-        getAllRestaurants()
+        await updateCategoryBook(id, subId, data).then(() =>
+        getAllCategoryBooks()
         );
         setRender(prevState => !prevState)
         setEditId()
@@ -49,7 +49,7 @@ function RestaurantTable({setAll, restaurantId, all, setRender, userId}) {
                                 icon: 'success',
                                 confirmButtonText: 'Puiku!'
                             })
-                        deleteRestaurant(subId) //Delete choosen transaction type form database;
+                        deleteCategoryBook(subId) //Delete choosen transaction type form database;
                         setAll(all.filter((data) => data._id !== subId))
                         setRender(prevState => !prevState)
                     } else if (result.isDenied) {
@@ -79,7 +79,7 @@ function RestaurantTable({setAll, restaurantId, all, setRender, userId}) {
             <table>
                 <thead>
                     <tr>
-                        <th>Restoranai</th>
+                        <th>Kategoryjos</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -89,15 +89,15 @@ function RestaurantTable({setAll, restaurantId, all, setRender, userId}) {
                                 <></>
                         ) : (
                             editId === data._id ? (
-                                <EditRestaurant
+                                <EditCategoryBook
                                     subId ={data._id}
-                                    id={restaurantId}
+                                    id={CategoryBookId}
                                     defaultData={data}
                                     onCancel={cancelEdit}
                                     onSubmit={submitEdit}
                             />
                             ) : (
-                                <ListRestaurant
+                                <ListCategoryBook
                                     key={data._id}
                                     subId ={data._id}
                                     defaultData={data}
@@ -119,4 +119,4 @@ function RestaurantTable({setAll, restaurantId, all, setRender, userId}) {
     );
 }
 
-export default RestaurantTable
+export default CategoryBookTable

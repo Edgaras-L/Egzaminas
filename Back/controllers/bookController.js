@@ -1,15 +1,15 @@
-const Restaurants = require("./../models/RestaurantModel");
+const Books = require("./../models/bookModel");
 
 
 
-exports.getAllRestaurants = async (req, res) => {
+exports.getAllBooks = async (req, res) => {
   try {
-    const restaurant = await Restaurants.find();
+    const Book = await Books.find();
     res.status(200).json({
       status: "success",
-      results: restaurant.length,
+      results: Book.length,
       data: {
-        restaurant: restaurant,
+        Book: Book,
       },
     });
   } catch (err) {
@@ -20,13 +20,13 @@ exports.getAllRestaurants = async (req, res) => {
   }
 };
 
-  exports.addNewRestaurant = async (req, res) => {
+  exports.addNewBook = async (req, res) => {
     try {
-        const newRestaurant = await Restaurants.create(req.body);
+        const newBook = await Books.create(req.body);
         res.status(201).json({
             status: 'success',
             data: {
-                restaurant: newRestaurant
+              Book: newBook
             }
         });
     } catch (err) {
@@ -38,13 +38,13 @@ exports.getAllRestaurants = async (req, res) => {
 };
 
 
-exports.getRestaurantById = async (req, res) => {
+exports.getBookById = async (req, res) => {
   try {
-    const restaurant = await Restaurants.findById(req.params.id);
+    const Book = await Books.findById(req.params.id);
     res.status(200).json({
       status: "success",
       data: {
-        restaurant: restaurant,
+        Book: Book,
       },
     });
   } catch (err) {
@@ -55,13 +55,13 @@ exports.getRestaurantById = async (req, res) => {
   }
 };
 
-exports.updateRestaurant = async (req, res) => {
+exports.updateBook = async (req, res) => {
   try {
-    const restaurant = await Restaurants.findByIdAndUpdate(req.params.id, req.body);
+    const Book = await Books.findByIdAndUpdate(req.params.id, req.body);
     res.status(200).json({
       status: "success",
       data: {
-        restaurant: restaurant,
+        Book: Book,
       },
     });
   } catch (err) {
@@ -73,12 +73,11 @@ exports.updateRestaurant = async (req, res) => {
 };
 
 
-exports.deleteRestaurant = async (req, res) => {
+
+exports.deleteBook = async (req, res) => {
+  console.log(req.params.id)
   try {
-    await Restaurants.findOneAndUpdate(
-      {'restaurant._id': req.params.subId},
-      { $pull: { restaurant: { _id: req.params.subId } } }
-    );
+    const Book = await Books.findByIdAndDelete(req.params.id);
     res.status(200).json({
       status: "success",
       data: null,

@@ -4,7 +4,7 @@ const cookieSession = require("cookie-session");
 
 const TransactionsRoutes = require("./routes/TransactionsRoutes");
 const userRoutes = require("./routes/user.routes")
-const restaurantRoutes = require("./routes/restaurantRoutes")
+const categoryBookRoutes = require("./routes/categoryBookRoutes")
 
 const app = express();
 var cors = require("cors");
@@ -27,7 +27,7 @@ app.use(
 );
 
 app.use("/api/v1/users", TransactionsRoutes );
-app.use("/api/v1/restaurants", restaurantRoutes );
+app.use("/api/v1/CategoryBooks",  categoryBookRoutes );
 
 
 

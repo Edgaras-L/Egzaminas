@@ -1,14 +1,14 @@
 import axios from 'axios';
 
-const axiosRestaurant = axios.create({
-    baseURL: 'http://localhost:3000/api/v1/restaurants',
+const axiosCategoryBook = axios.create({
+    baseURL: 'http://localhost:3000/api/v1/CategoryBooks',
     headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
     },
 });
 
-axiosRestaurant.interceptors.response.use(
+axiosCategoryBook.interceptors.response.use(
     function (response) {
         return response;
     },
@@ -19,4 +19,4 @@ axiosRestaurant.interceptors.response.use(
     }
 );
 
-export default axiosRestaurant;
+export default axiosCategoryBook;

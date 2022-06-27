@@ -1,28 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { IoIosArrowDown } from "react-icons/io";
-import { MdOutlineAccountCircle, MdOutlineAdminPanelSettings, MdOutlineCategory } from "react-icons/md";
+import { MdOutlineAccountCircle, MdOutlineCategory, MdOutlineAdminPanelSettings } from "react-icons/md";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { BsJournals } from "react-icons/bs";
 import { GiWallet } from "react-icons/gi";
-import { RiAddFill, RiUserSettingsLine } from "react-icons/ri";
-import { getAllCategoryBooks } from '../../../api/lib/CategoryBookAPI';
 import { getAllUsers } from '../../../api/lib/TransactionsAPI';
-import CreateCategoryBookForm from './CreateCategoryBookForm';
-import CategoryBookTable from './CategoryBookTable';
 import { Link, useNavigate } from "react-router-dom";
-import './Styles/admin.css';
+import UserTable from './UserTable'
 
-function MainAdminTable() {
+function ListUsers({ admin }) {
   const [accountpopup, setAccountPopUp] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [all, setAll] = useState([]);
-  const [categoryBooks, setCategoryBooks] = useState([]);
-  const [CategoryBookId, setCategoryBookId] = useState(false);
+  const [logs, setLogs] = useState([]);
   const [render, setRender] = useState(false);
   const [userId, setId] = useState([]);
-  const [user, setUser] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-  let text = localStorage.getItem("user");
-  let obj = JSON.parse(text)
+  const [load, setLoad] = useState(true)
+  const [catFilter, setCatFilter] = useState([]);
+  const [userFilter, setUserFilter] = useState([]);
 
   let navigate = useNavigate();
   //User account menu popup
@@ -30,32 +25,22 @@ function MainAdminTable() {
     setAccountPopUp(!accountpopup);
   }
 
+  const toggleAddPopup = () => {
+    setIsOpen(!isOpen);
+  }
+
   //---FetchData---//
-
   useEffect(() => {
-    getAllUsers().then((res) => {
-        const userdata = res.data.data.transactions; //Fetch all existing data from database
-        let userAllIds = userdata.filter((data) => data._id === obj); //Take All users Ids
-        setId(...userAllIds.map((data) => data._id)); //Take User Id
-        let roles = userAllIds.map((data) => data._id === obj ? (data.roles):(''));
-        if(roles[0] !== 'admin'){navigate('/veikla')};
-    });
-  })
-
-
-  useEffect(() => {
-
-    getAllCategoryBooks().then((res) => {
-      const categoryBookdata = res.data.data.categoryBook;
-      setCategoryBooks(categoryBookdata)
-      setCategoryBookId(...categoryBookdata.map((data) => data._id));
-    });
-  }, [render, CategoryBookId]);
-  useEffect(() => {
-    let tempAll = [...categoryBooks];
-    setAll(tempAll);
-  }, [categoryBooks])
-
+    {
+      admin ? (navigate('/')) : (
+        getAllUsers().then((res) => {
+          const usersdata = res.data.data.transactions;
+          setAll(usersdata);
+          setLoad(false);
+        })
+      )
+    };
+  }, [render]);
 
   function vardas() {
     if (localStorage.user !== undefined) {
@@ -64,21 +49,48 @@ function MainAdminTable() {
     }
   }
 
-  useEffect(() => {
-    if (localStorage.user !== undefined) {
-      setUser(localStorage.getItem("user").replace(/['"]+/g, ''))
-    }
-  }, []);
-
   function clearUser() {
     localStorage.clear();
     navigate('/');
 
   }
 
-  const toggleAddPopup = () => {
-    setIsOpen(!isOpen);
+  function filterLogs(filter, user) {
+    let tempLogs = [];
+    let catFilter = false;
+    let userFilter = false;
+    if (filter) {
+      catFilter = true;
+    }
+    if (user) {
+      userFilter = true;
+    }
+    logs.forEach((log) => {
+      if (catFilter && userFilter) {
+        if (log.ActionType.includes(filter) && log.UserId === user) {
+          tempLogs.push(log);
+        }
+      } else if (catFilter && !userFilter) {
+        if (log.ActionType.includes(filter)) {
+          tempLogs.push(log);
+        }
+      } else if (!catFilter && userFilter) {
+        if (log.UserId === user) {
+          tempLogs.push(log);
+        }
+      }
+    });
+    if (!catFilter && !userFilter) {
+      setLogs(logs);
+    } else {
+      setLogs(tempLogs);
+    }
   }
+
+  useEffect(() => {
+    filterLogs(catFilter, userFilter);
+  }, [catFilter, userFilter]);
+
 
   return (
     <div className='container-fluid p-0 m-0'>
@@ -96,10 +108,10 @@ function MainAdminTable() {
         </div>
         <div className='mainadmincontent p-0 m-0'>
           <div className='header'>
-
             {/* Visible on medium and small screens */}
+
             <nav className="d-lg-none d-md-flex d-sm-flex flex-column flex-wrap navbar border-bottom">
-              <p className='w-100 p-2 fs-5 text-decoration-none text-muted text-center'><span className='text-center text-primary p-1 me-3 fs-1'><GiWallet /></span>BudgetSimple</p>
+              <p className='w-100 p-2 fs-5 text-decoration-none text-muted text-center'><span className='text-center text-primary p-1 me-3 fs-1'><GiWallet /></span>Biblioteka</p>
               <div className='links d-flex flex-row justify-content-center fs-5'>
                 <Link to="/veikla" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 text-decoration-none border-bottom border-warning'><AiOutlineTransaction /></span><span className='text-light'>Veikla</span></Link>
                 <Link to="/admin" className='p-3 text-decoration-none text-muted'><span className='text-center text-warning p-1 me-2 text-decoration-none border-bottom border-warning'><MdOutlineAdminPanelSettings /></span><span className='text-light'>Valdyba</span></Link>
@@ -132,45 +144,28 @@ function MainAdminTable() {
               </div>
             </div>
             <div className='nav ps-5'>
-              <Link to="/users" className='p-2 text-decoration-none text-light'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineCategory /></span>Vartotojai</Link>
+            <Link to="/users" className='p-2 text-decoration-none text-light'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><MdOutlineCategory /></span>Vartotojai</Link>
               <Link to="/admin" className='p-2 text-decoration-none text-light'><span className='text-center text-warning p-1 me-2 border-bottom border-warning'><BsJournals /></span>Knygu kategorijos</Link>
             </div>
           </div>
           <div className='mainadmin pt-5 text-light'>
             <div className='row activitiestable mx-auto p-3 w-100'>
               <div className='row d-flex flex-row pb-3'>
-                <h5 className='w-25 p-0 m-0 pb-3 pt-1'>Kategorijų sąrašas</h5>
-                <div className='w-25'>
-                  <button
-                    onClick={toggleAddPopup}
-                    className='btn border border-1 p-1'>
-                    <RiAddFill className='text-center' />
-                    <span>Pridėti kategoriją</span>
-                  </button>
-                </div>
+                <h5 className='w-25 p-0 m-0 pb-3 pt-1'>Vartotojų sąrašas</h5>
               </div>
-                <CategoryBookTable
-                  CategoryBookId={CategoryBookId}
-                  setAll={setAll}
-                  all={all}
-                  setRender={setRender}
-                  render={render}
-                  userId={user}
-                />
-            </div>
-            {isOpen &&
-              <CreateCategoryBookForm
-                handlepopupClose={toggleAddPopup}
+
+              <UserTable
+                setAll={setAll}
+                all={all}
                 setRender={setRender}
-                userId={user}
-                render={render}
-                setId={setId}
-              />}
+                load={load}
+              />
+            </div>
           </div>
         </div>
-      </div >
+      </div>
     </div>
   )
 }
 
-export default MainAdminTable
+export default ListUsers

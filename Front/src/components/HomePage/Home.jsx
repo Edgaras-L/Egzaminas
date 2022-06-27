@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import { GiWallet } from "react-icons/gi";
+import { FaBook } from "react-icons/fa";
 
 import './Home.css'
 
@@ -19,8 +19,8 @@ function Home() {
         <div className="row d-flex justify-content-between">
           <div className="col-4">
             <Link to="/" className='text-warning mt-3 pt-2 pb-1 text-decoration-none fs-3'>
-              <span className='text-center p-1 me-3 ms-2 fs-1'><GiWallet /></span>
-              <span className='text-secondary'>BudgetSimple</span>
+              <span className='text-center p-1 me-3 ms-2 fs-1'><FaBook /></span>
+              <span className='text-secondary'>Biblioteka</span>
             </Link>
           </div>
 
@@ -39,26 +39,17 @@ function Home() {
               <div className="col-8">
                 <div className="container-fluid">
                   <div className="row m-4 pt-4">
-                    <h2>Text</h2>
-                    <p className='text-dark'>
-                      Biudžetas yra viena iš svarbiausių jūsų finansinio planavimo priemonių. Neturėdami biudžeto galite rizikuoti per daug išleisti. Gali būti sunkiau pasiekti svarbius finansinius tikslus, pvz., sutaupyti skubios pagalbos fondui ar įsigyti būstą, kai neturite biudžeto, pagal kurį galėtumėte nukreipti išlaidas.
-                    </p>
-                    <p className='text-dark'>
-                      Biudžeto sudarymo meno įvaldymas prasideda nuo svarbiausių gero biudžeto komponentų supratimo. Kurdami namų ūkio biudžetą nepamirškite įtraukti šių devynių funkcijų.
-                    </p>
                     <div className='col-5'>
-                      <h3>Tikslios išlaidų kategorijos</h3>
+                      <h3>Sveiki atvykę į mūsų elektroninės bibliotekos paieškos puslapį</h3>
                       <p className='text-dark'>
-                        Nors biudžeto darbalapiai gali būti naudingas išteklius nustatant biudžetą, jie gali visiškai neatitikti jūsų išlaidų įpročių. Kurdami biudžetą sutelkite dėmesį į išlaidų kategorijas, kurios atspindi, kur eina jūsų pinigai. Išlaidų stebėjimas naudojant biudžeto sudarymo programą yra geras būdas suprasti savo mėnesio išlaidas.
-                      </p>
-                      <h3>Pakanka išlaidų kategorijų</h3>
-                      <p className='text-dark'>
-                        Jūsų biudžete turi būti ne tik tikslios išlaidų kategorijos, bet ir tinkamas išlaidų kategorijų skaičius. Nors nenorite persistengti, suskirstę platesnes išlaidų kategorijas į mažesnius segmentus galite susidaryti aiškesnį vaizdą, kur keliauja jūsų pinigai. Tai naudinga norint suprasti savo išlaidų modelius ir taip pat gali padėti tiksliai nustatyti sritis, kuriose galite sumažinti išlaidas. Tiesiog stenkitės, kad nepaskęstumėte detalėse.
+                      Tai integrali paieškos sistema, leidžianti ieškoti knygas ir juos rezervuoti.
+                      Norėdami rasti elektroninius išteklius, užsisakyti surastus leidinius, naudotis bibliotekos skaitytojams skirtomis funkcijomis, prašytume prisijungti arba užsiregistruoti prie virtuoalios bibliotekos.
                       </p>
                     </div>
-                    <img src="https://www.zambianguardian.com/wp-content/uploads/2021/12/budget-696x365.jpg" className='col-5 w-50 h-50 m-2 rounded' alt="Budget" />
+                    <img src="https://gizumokykladc.lt/wp-content/uploads/2018/04/knygos.jpg" className='col-5 w-50 h-50 m-2 rounded' alt="Budget" />
                     <p className='text-dark'>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet dicta fugiat nemo pariatur dolores, sed id autem iusto tempora. Fuga sed voluptates molestias! Iure sequi eligendi odio at perspiciatis dolores.
+                    Universiteto g. 3, LT-01122, Vilnius
+                    El. paštas :mb@mb.vu.lt
                     </p>
                   </div>
                 </div>
